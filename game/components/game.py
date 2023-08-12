@@ -1,13 +1,16 @@
 import pygame
+import os
+from pygame import mixer
 from game.components.spaceshift import Spaceshift
 from game.components.enemies.enemy_manager import EnemyManager
-
-from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
+from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, IMG_DIR
 
 
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
+        pygame.mixer.music.load(os.path.join(IMG_DIR, 'music/music.mp3'))
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -21,11 +24,13 @@ class Game:
 
     def run(self):
         self.playing = True
+        pygame.mixer.music.play(-1)
         while self.playing:
             self.events()
             self.update()
             self.draw()
         pygame.display.quit()
+        pygame.mixer.music.stop()
         pygame.quit()
 
     def events(self):
