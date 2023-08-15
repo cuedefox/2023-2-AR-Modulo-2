@@ -1,4 +1,5 @@
 from pygame.sprite import Sprite
+from game.components.bullets.bullet import Bullet
 from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, SPACESHIP_DIMENTIONS
 import pygame
 
@@ -9,8 +10,9 @@ class Spaceshift(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = (SCREEN_WIDTH // 2) - 40
         self.rect.y = 500
+        self.type = 'player'
 
-    def update(self, user_input):
+    def update(self, user_input, game):
         if user_input[pygame.K_LEFT]:
             self.move_left()
         elif user_input[pygame.K_RIGHT]:
@@ -19,6 +21,9 @@ class Spaceshift(Sprite):
             self.move_up()
         elif user_input[pygame.K_DOWN]:
             self.move_down()
+        elif user_input[pygame.K_SPACE]:
+            game.sounds['shoot'].play()
+            self.shoot(game.bullet_manager)
 
     def draw(self, screen):
         screen.blit(self.image,(self.rect.x , self.rect.y))
@@ -40,3 +45,7 @@ class Spaceshift(Sprite):
     def move_down(self):
         if self.rect.y < SCREEN_HEIGHT - SPACESHIP_DIMENTIONS['y']:
             self.rect.y += 10
+
+    def shoot(self, bullet_manager):
+        bullet = Bullet(self)
+        bullet_manager.add_bullet(bullet)
