@@ -31,36 +31,42 @@ ENEMY_2 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_2.png"))
 ENEMY_3 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_3.png"))
 ENEMY_4 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_4.png"))
 ENEMY_5 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_5.png"))
+EXPLOTION_IMG = pygame.image.load(os.path.join(IMG_DIR, "Other/exp.png"))
 ENEMY_TYPES = {
     1: {
         'name': 'ship1',
         'image': ENEMY_1,
         'speed_x': 5,
-        'speed_y': 1
+        'speed_y': 1,
+        'score': 50
     },
     2: {
         'name': 'ship2',
         'image': ENEMY_2,
         'speed_x': 3,
-        'speed_y': 1
+        'speed_y': 1,
+        'score': 25
     },
     3: {
         'name': 'x-wing',
         'image': ENEMY_3,
         'speed_x': 9,
-        'speed_y': 2
+        'speed_y': 2,
+        'score': 75
     },
     4: {
         'name': 'jedi',
         'image': ENEMY_4,
         'speed_x': 8,
-        'speed_y': 1
+        'speed_y': 1,
+        'score': 65
     },
     5: {
         'name': 'alien',
         'image': ENEMY_5,
         'speed_x': 3,
-        'speed_y': 5
+        'speed_y': 5,
+        'score': 150
     }
 }
 

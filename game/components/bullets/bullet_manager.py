@@ -1,15 +1,22 @@
 import pygame
 
+from game.utils.constants import ENEMY_TYPES, EXPLOTION_IMG
+
 class BulletManager:
     def __init__(self):
         self.bullets = []
         self.enemy_bullets = []
+        self.exp_img = pygame.transform.scale(EXPLOTION_IMG ,(40, 60))
+        self.explosion_timer = 0
+        self.show_explosion = False
+        self.explosion_duration = 1000 
 
     def update(self, game):
         for bullet in self.enemy_bullets:
             bullet.update(self.enemy_bullets)
 
             if bullet.rect.colliderect(game.player.rect) and bullet.owner == 'enemy':
+                game.death_count += 1
                 self.enemy_bullets.remove(bullet)
                 game.sounds['exp'].play()
                 game.playing = False
@@ -23,8 +30,10 @@ class BulletManager:
 
                 if bullet.rect.colliderect(enemy.rect) and bullet.owner == 'player':
                     self.bullets.remove(bullet)
+                    game.score += ENEMY_TYPES[enemy.enemy_type]['score']
                     game.sounds['exp'].play()
                     game.enemy_manager.enemies.remove(enemy)
+                    break
 
     def draw(self, screen):
         for bullet in self.enemy_bullets:
@@ -38,3 +47,7 @@ class BulletManager:
             self.enemy_bullets.append(bullet)
         elif bullet.owner == 'player' and len (self.bullets) < 1:
             self.bullets.append(bullet)
+
+    def reset(self):
+        self.bullets = []
+        self.enemy_bullets = []
