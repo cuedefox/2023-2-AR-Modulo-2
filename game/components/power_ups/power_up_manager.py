@@ -32,7 +32,6 @@ class PowerUpManager:
                     self.power_ups.remove(power_up)
                 elif power_up.type == 'nuke':
                     game.player.power_up_type = power_up.type
-                    game.score += 500
                     for enemy in game.enemy_manager.enemies:
                         enemy.explode()
                     self.power_ups.remove(power_up)
