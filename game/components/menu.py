@@ -1,5 +1,5 @@
 import pygame
-from game.utils.constants import FONT_STYLE, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import FONT_STYLE, SCREEN_HEIGHT, SCREEN_WIDTH, BG_MENU
 
 
 class Menu:
@@ -7,21 +7,26 @@ class Menu:
     HALF_SCREEN_WIDTH = SCREEN_WIDTH //2
 
     def __init__(self, message, screen, game):
-        screen.fill((255,255,255))
+        self.background_image = BG_MENU
+        self.background_rect = self.background_image.get_rect()
+        self.background_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
         self.font = pygame.font.Font(FONT_STYLE, 50)
-        self.text = self.font.render(message, True, (0,0,0))
+        self.text = self.font.render(message, True, (255,255,255))
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
-        self.stats = self.font.render(f'Best Score: {game.best_score} Deaths: {game.death_count}', True, (0, 0, 0))
+        self.stats = self.font.render(f'Best Score: {game.best_score} Deaths: {game.death_count}', True, (255, 0, 0))
         self.stats_rect = self.stats.get_rect()
         self.stats_rect.center = (self.HALF_SCREEN_WIDTH, (self.HALF_SCREEN_HEIGHT + 200))
 
     def update(self, game):
-        self.stats = self.font.render(f'Best Score: {game.best_score} - Deaths: {game.death_count}', True, (0, 0, 0))
+        self.stats = self.font.render(f'Best Score: {game.best_score} - Deaths: {game.death_count}', True, (255, 0, 0))
         pygame.display.update()
         self.handle_events_on_menu(game)
 
     def draw(self, screen):
+        screen.blit(self.background_image, self.background_rect)
+        screen.blit(self.text, self.text_rect)
+        screen.blit(self.stats, self.stats_rect)
         screen.blit(self.text, self.text_rect)
         screen.blit(self.stats, self.stats_rect)
 
@@ -34,7 +39,7 @@ class Menu:
                 game.run()
 
     def update_message(self, message):
-        self.text = self.font.render(message, True, (0,0,0))
+        self.text = self.font.render(message, True, (255,255,255))
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
 

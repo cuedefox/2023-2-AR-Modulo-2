@@ -2,7 +2,7 @@ import pygame
 import os
 
 # Global Constants
-TITLE = "Las naves locas"
+TITLE = "Jala Space Invaders"
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 FPS = 30
@@ -10,15 +10,18 @@ IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 
 # Assets Constants
 ICON = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
-
 SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
-
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
-
+BG_MENU = pygame.image.load(os.path.join(IMG_DIR, 'Other/menu.png'))
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
+NUKE = pygame.image.load(os.path.join(IMG_DIR, 'Other/nuke.png'))
+AMMO = pygame.image.load(os.path.join(IMG_DIR, 'Other/ammo.png'))
+GAME_OVER = pygame.image.load(os.path.join(IMG_DIR, 'Other/GameOver.png'))
 
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = 'shield'
+NUKE_TYPE = 'nuke'
+AMMO_TYPE = 'ammo'
 
 SPACESHIP = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
 SPACESHIP_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_shield.png"))

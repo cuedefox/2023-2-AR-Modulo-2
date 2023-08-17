@@ -2,7 +2,7 @@ import random
 import pygame
 from pygame.sprite import Sprite
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import SCREEN_HEIGHT, SCREEN_WIDTH, ENEMY_TYPES
+from game.utils.constants import SCREEN_HEIGHT, SCREEN_WIDTH, ENEMY_TYPES, EXPLOTION_IMG
 
 class Enemy(Sprite):
     SHIP_WIDTH = 40
@@ -24,8 +24,12 @@ class Enemy(Sprite):
         self.index = 0
         self.shooting_time = random.randint(300, 500)
         self.type = 'enemy'
+        self.is_exploding = False
+        self.explosion_start_time = 0
 
     def update(self, ships, game):
+        if self.is_exploding:
+            return
         self.rect.y += self.speed_y
         self.shoot(game)
         if self.movement_x == 'left':
@@ -52,6 +56,11 @@ class Enemy(Sprite):
         current_time = pygame.time.get_ticks()
         if self.shooting_time <= current_time:
             bullet = Bullet(self)
-            game.bullet_manager.add_bullet(bullet)
+            game.bullet_manager.add_bullet(bullet, game)
             game.sounds['shoot'].play()
             self.shooting_time += random.randint(300, 500)
+
+    def explode(self):
+        self.image = pygame.transform.scale(EXPLOTION_IMG ,(40, 60))
+        self.is_exploding = True
+        self.explosion_start_time = pygame.time.get_ticks()
